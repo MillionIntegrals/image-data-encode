@@ -21,12 +21,13 @@ class XorEncoding:
     def encode(self, img_data, payload):
         """ Encode image data """
         # PREPARE PAYLOAD
-        payload = add_length_info(payload)
-        bit_payload = convert_to_bit_density(payload, self.bits_per_block)  # DATA TO ENCODE
+        length_payload = add_length_info(payload)
+        bit_payload = convert_to_bit_density(length_payload, self.bits_per_block)  # DATA TO ENCODE
 
         # Prepare image data
         shape = img_data.shape
         initial_img_length = shape[0] * shape[1] * shape[2]
+
         raw_data = img_data.reshape(initial_img_length)
         raw_bits = np.unpackbits(raw_data)
         raw_bits = pad_bit_array(raw_bits, self.block_size)
@@ -48,12 +49,20 @@ class XorEncoding:
 
     def decode(self, img_data):
         """ Decode image data """
+        # Prepare image data
         shape = img_data.shape
         initial_img_length = shape[0] * shape[1] * shape[2]
+
         raw_data = img_data.reshape(initial_img_length)
         raw_bits = np.unpackbits(raw_data)
         raw_bits = pad_bit_array(raw_bits, self.block_size)
 
+        # Actual decoding
         block_bits = raw_bits.reshape((raw_bits.shape[0] // self.block_size, self.block_size))
+        raw_payload = np.bitwise_xor.reduce(block_bits * self.block_template, axis=1)
 
-        return np.bitwise_xor.reduce(block_bits * self.block_template, axis=1)
+        # Packing data back
+        payload_8bit = convert_from_bit_density(raw_payload, self.bits_per_block)
+        payload = strip_length_info(payload_8bit)
+        return payload
+

@@ -17,7 +17,7 @@ def pad_bit_array(bit_array, bit_length):
     """ Pad given bit-array (uint8) with zeros, so that the length can be divided by bit_length """
     missing_bits = (bit_length - (bit_array.shape[0] % bit_length)) % bit_length
 
-    # PAD BITS IF NEC
+    # PAD BITS IF NEEDED
     if missing_bits > 0:
         missing = np.repeat(0, missing_bits).astype(np.uint8)
         return np.hstack((bit_array, missing))
