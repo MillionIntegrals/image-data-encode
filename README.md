@@ -55,7 +55,9 @@ When I have some time, I'll write an explaination how the algorithm works. Feel 
 
 # Example
 
-Here is the image of a dragon I've downloaded from Flickr:
+They say an image is worth a thousand words.
+
+Here is a relatively small image of a dragon (480 × 640) I've downloaded from Flickr:
 
 ![dragon](https://raw.githubusercontent.com/MillionIntegrals/img-data-encode/master/data/dragon.jpg)
 
