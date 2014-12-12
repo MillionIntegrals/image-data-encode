@@ -1,6 +1,6 @@
 # img-data-encode
 
-My small hobby python project to test an algorithm idea I've had once about how one can encode arbitrary data in an image.
+My small hobby python project to test an algorithm idea I've had once about how one can encode arbitrary data in an image without changing it visually too much.
 
 Sadly, it only works when you save images in a lossless compression format such as PNG. 
 
@@ -46,7 +46,19 @@ To invoke action *encode* you need all *infile*, *outfile* and a *datafile* (plu
 
 To decode, specify action *decode*, an *infile* to be the previously encoded image, and an *outfile* as where to save the data to. Algorithm options must be the same as in the encoding step. Decoded data will be saved to the outfile path.
 
+Block size specified must be a power of two.
+
 
 ### How does it work
 
 When I have some time, I'll write an explaination how the algorithm works. Feel free to contact me if you'd be interested in seeing it.
+
+# Example
+
+Here is the image of a dragon I've downloaded from Flickr:
+
+![dragon](https://raw.githubusercontent.com/MillionIntegrals/img-data-encode/master/data/dragon.jpg)
+
+And this is the same image with the whole Alice in Wonderland (160kb) text encoded in it. Parameters were block_size=8, intensity=4.
+
+![dragon encoded](https://raw.githubusercontent.com/MillionIntegrals/img-data-encode/master/data/dragon_encoded.png)
