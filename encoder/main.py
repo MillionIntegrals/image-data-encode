@@ -11,7 +11,7 @@ from encoder.algorithms.xor_encoding import XorEncoding
 def instantiate_algorithm(args):
     """ Instantiate algorithm object from given args """
     if args.algorithm == 'xor_encoding':
-        return XorEncoding(block_size=args.block_size)
+        return XorEncoding(block_size=args.block_size, intensity=args.intensity)
 
     raise RuntimeError('Algorithm type not detected')
 
@@ -90,6 +90,8 @@ def main():
     group = parser.add_argument_group('Algorithm parameters')
 
     group.add_argument('--block_size', type=int, help='Algorithm block size', default=64*64)
+    group.add_argument('--intensity', type=int, choices=[x + 1 for x in range(8)],
+                       help='Algorithm intensity', default=8)
 
     args = parser.parse_args()
 
