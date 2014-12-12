@@ -35,10 +35,11 @@ class XorEncoding:
         # Actual encoding part
         block_bits = raw_bits.reshape((raw_bits.shape[0] // self.block_size, self.block_size))
         current_data = np.bitwise_xor.reduce(block_bits * self.block_template, axis=1)
-        extra_length = current_data.shape[0] - bit_payload.shape[0]
-        bit_payload = np.hstack((bit_payload, current_data[-extra_length:]))
-        diff = np.bitwise_xor(current_data, bit_payload)
-        block_bits[np.arange(block_bits.shape[0]), diff] = 1 - block_bits[np.arange(block_bits.shape[0]), diff]
+        original_payload_length = bit_payload.shape[0]
+        # extra_length = current_data.shape[0] - bit_payload.shape[0]
+        # bit_payload = np.hstack((bit_payload, current_data[-extra_length:]))
+        diff = np.bitwise_xor(current_data[:original_payload_length], bit_payload)
+        block_bits[np.arange(original_payload_length), diff] = 1 - block_bits[np.arange(original_payload_length), diff]
         output_bits = block_bits.reshape(block_bits.shape[0] * block_bits.shape[1])
 
         # Pack the result again
