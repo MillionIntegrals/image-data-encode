@@ -23,16 +23,16 @@ class XorEncoding:
     
     def _pack_data(self, data):
         """ 
-        :param data: 1-D uint8 raw data to encode
-        :return: 1-D uint64 data encoded
+        :param data: 1-D uint8 raw data to pack
+        :return: 1-D uint64 data packed
         """
         length_data = add_length_info(data)
         return convert_to_bit_density(length_data, self.bits_per_block)  # DATA TO ENCODE
 
     def _unpack_data(self, packed_data):
         """
-        :param data: 1-D uint64 data to return
-        :return: 1-D uint8 array decoded
+        :param packed_data: 1-D uint64 packed data
+        :return: 1-D uint8 array unpacked
         """
         payload_8bit = convert_from_bit_density(packed_data, self.bits_per_block)
         return strip_length_info(payload_8bit)
