@@ -2,9 +2,11 @@ __author__ = 'jrx'
 
 import numpy as np
 
+from encoder.constants import BITS_PER_BYTE
+
 
 def truncate_bit_array(bit_array, bit_length):
-    """ Truncate given bit-array (uint8), so that the length can be divided by bit_length """
+    """ Truncate given bit-array (uint8), so that the length can be divided by bit_length without a remainder """
     overflow = bit_array.shape[0] % bit_length
 
     if overflow > 0:
@@ -14,7 +16,7 @@ def truncate_bit_array(bit_array, bit_length):
 
 
 def pad_bit_array(bit_array, bit_length):
-    """ Pad given bit-array (uint8) with zeros, so that the length can be divided by bit_length """
+    """ Pad given bit-array (uint8) with zeros, so that the length can be divided by bit_length without a remainder """
     missing_bits = (bit_length - (bit_array.shape[0] % bit_length)) % bit_length
 
     # PAD BITS IF NEEDED
@@ -40,28 +42,12 @@ def convert_to_bit_density(input_data, result_density):
 
 
 def convert_from_bit_density(input_data, result_density):
-    """ Convert from given density to uint8 """
+    """ Convert from given density (uint64) to uint8 """
     input_shape = input_data.shape[0]
     raw_bits = np.unpackbits(input_data.astype(np.dtype('>u8')).view(np.uint8)).reshape(input_shape, 64)
     truncated_bits = raw_bits[:, -result_density:]
     truncated_bits = truncated_bits.reshape(truncated_bits.shape[0] * truncated_bits.shape[1])
 
-    TARGET_DENSITY = 8
-
-    truncated_bits = pad_bit_array(truncated_bits, TARGET_DENSITY)
+    truncated_bits = pad_bit_array(truncated_bits, BITS_PER_BYTE)
 
     return np.packbits(truncated_bits)
-
-
-def main():
-    input = np.array([0, 1, 255], dtype=np.uint8)
-    converted = convert_to_bit_density(input, 12)
-    and_back = convert_from_bit_density(converted, 12)
-
-    print('Input =', input)
-    print('Converted =', converted)
-    print('And back =', and_back)
-
-
-if __name__ == '__main__':
-    main()

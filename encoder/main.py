@@ -27,11 +27,12 @@ def info_action(args):
     assert im.mode == 'RGB', 'Only RGB mode images are supported!'
     rgb_data = np.array(im)
 
-
     capacity = algorithm.data_capacity(rgb_data.shape)
-    print(capacity)
 
-    # print('Data capacity {:.2f} b/{:.2f} kb/{:.2f} mb'.format(capacity, capacity / 1024, capacity / 1024 / 1024))
+    if args.verbose:
+        print('Data capacity {:.2f} b/{:.2f} kb/{:.2f} mb'.format(capacity, capacity / 1024, capacity / 1024 / 1024))
+    else:
+        print(capacity)
 
 
 def encode_action(args):
@@ -86,6 +87,7 @@ def main():
     parser.add_argument('-o', '--outfile', help='Specify output file', default='')
     parser.add_argument('-a', '--algorithm', help='Choose your algorithm', default='xor_encoding')
     parser.add_argument('-d', '--datafile', help='Specify data file', default='')
+    parser.add_argument('-v', '--verbose', help='Make program more verbose', default='')
 
     group = parser.add_argument_group('Algorithm parameters')
 

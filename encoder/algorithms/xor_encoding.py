@@ -2,25 +2,24 @@ __author__ = 'jrx'
 
 import numpy as np
 
-from encoder.bit_density import pad_bit_array, truncate_bit_array, convert_to_bit_density, convert_from_bit_density
+from encoder.bit_density import pad_bit_array, convert_to_bit_density, convert_from_bit_density
+from encoder.constants import BITS_PER_BYTE, BYTES_PER_UINT64
 from encoder.utilities import add_length_info, strip_length_info
 
 
 class XorEncoding:
-    BITS_PER_BYTE = 8
-    BYTES_PER_UINT64 = 8
 
     def __init__(self, block_size, intensity):
-        self.block_size = block_size
+        self.bits_per_block = block_size
+        self.block_size = 2 ** self.bits_per_block
         self.intensity = intensity
-        self.bits_per_block = int(np.log2(self.block_size))
         self.block_template = np.arange(self.block_size, dtype=np.uint64)
 
     def data_capacity(self, img_size):
-        """ Return data capacity for given algorithm and image """
+        """ Return data capacity for given algorithm and image -- in bytes """
         bits_in_image = img_size[0] * img_size[1] * img_size[2] * self.intensity
         number_of_blocks = bits_in_image // self.block_size
-        return number_of_blocks * self.bits_per_block // self.BITS_PER_BYTE - self.BYTES_PER_UINT64
+        return number_of_blocks * self.bits_per_block // BITS_PER_BYTE - BYTES_PER_UINT64
     
     def _pack_data(self, data):
         """ 
@@ -86,7 +85,7 @@ class XorEncoding:
         initial_img_length = shape[0] * shape[1] * shape[2]
 
         raw_data = img_data.flatten()
-        raw_bits = np.unpackbits(raw_data).reshape(initial_img_length, self.BITS_PER_BYTE)
+        raw_bits = np.unpackbits(raw_data).reshape(initial_img_length, BITS_PER_BYTE)
 
         selected_raw_bits = raw_bits[:, -self.intensity:].flatten()
 
@@ -109,7 +108,7 @@ class XorEncoding:
         initial_img_length = shape[0] * shape[1] * shape[2]
 
         raw_data = img_data.flatten()
-        raw_bits = np.unpackbits(raw_data).reshape(initial_img_length, self.BITS_PER_BYTE)
+        raw_bits = np.unpackbits(raw_data).reshape(initial_img_length, BITS_PER_BYTE)
 
         selected_raw_bits = raw_bits[:, -self.intensity:].flatten()
 
