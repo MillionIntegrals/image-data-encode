@@ -1,12 +1,15 @@
-# img-data-encode
+# Image data encoding
 
-My small hobby python project to test an algorithm idea I've had once about how one can encode arbitrary data in an image without changing it visually too much.
+My small hobby python project to test an algorithm idea I've had once, about how one can encode arbitrary chunk of data
+in an existing image without changing it visually too much.
 
-Sadly, it only works when you save images in a lossless compression format such as PNG. 
+Sadly, it only works when you save images in a lossless compression format such as PNG.
+
+Project is written in *Python 3*.
 
 ### Usage
 
-Program is invoked by calling the encoder/main.py file. Here is the brief help information:
+Program is invoked by calling the encoder/main.py file. Here is a brief help information:
 
 ```
 mi@mihome ~/repos/img-data-encode> python3 -m encoder.main -h
@@ -38,20 +41,24 @@ Algorithm parameters:
 ```
 
 You invoke action *info* to see how much bytes of data you can write to given image with supplied algorithm settings.
-Henerally, the higher the intensity and lower the block size the more data you can write to given image. But if you specify intensity too high or block size too low distortions may become visible in the image.
+Generally, the higher the intensity and lower the block size the more data you can write to given image. But if you
+specify intensity too high or block size too low distortions may become visible in encoded image.
 
 This action only needs an *infile* and algorithm parameters.
 
 To invoke action *encode* you need all *infile*, *outfile* and a *datafile* (plus the algorithm options). If given algorithm options give you enough data capacity to save all the data you wanted, everything should go smoothly.
 
-To decode, specify action *decode*, an *infile* to be the previously encoded image, and an *outfile* as where to save the data to. Algorithm options must be the same as in the encoding step. Decoded data will be saved to the outfile path.
+To decode, specify action *decode*, an *infile* to be the previously encoded image, and an *outfile* as where to save
+the data to. Algorithm options must be the same as in the encoding step. Decoded data will be saved to the outfile 
+path.
 
 Block size specified must be a power of two.
 
 
 ### How does it work
 
-When I have some time, I'll write an explaination how the algorithm works. Feel free to contact me if you'd be interested in seeing it.
+When I have some time, I'll write an explaination how the algorithm works. Feel free to contact me if you'd be
+interested in seeing it.
 
 # Example
 
