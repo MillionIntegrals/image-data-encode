@@ -3,6 +3,6 @@ python:
 sudo: required
 # Command to install dependencies
 install: 
-    - sudo pip install -rH requirements.txt --use-mirrors
+    - sudo pip install -H -r requirements.txt
 # Command to run tests
 script: nosetests tests
