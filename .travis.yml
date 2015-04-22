@@ -1,7 +1,8 @@
 python:
     - "3.4"
+sudo: required
 # Command to install dependencies
 install: 
-    - pip install -r requirements.txt
+    - sudo pip install -r requirements.txt
 # Command to run tests
 script: nosetests tests
