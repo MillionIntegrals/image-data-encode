@@ -1,3 +1,2 @@
 numpy==1.9
 Pillow==2.8
-nose==1.3
