@@ -14,3 +14,4 @@ def strip_length_info(data):
     """ Strip 64-bit length information and truncate the data """
     length = data[:8].view(np.dtype('>u8'))[0]
     return data[8:8+length]
+    
