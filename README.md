@@ -1,5 +1,7 @@
 # Image data encoding
 
+![Build Status][https://travis-ci.org/MillionIntegrals/image-data-encode.svg?branch=master]
+
 My small hobby python project to test an algorithm idea I've had once, about how one can encode arbitrary chunk of data
 in an existing image without changing it visually too much.
 
