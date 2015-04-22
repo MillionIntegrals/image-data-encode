@@ -20,9 +20,9 @@ class XorEncoding:
         bits_in_image = img_size[0] * img_size[1] * img_size[2] * self.intensity
         number_of_blocks = bits_in_image // self.block_size
         return number_of_blocks * self.bits_per_block // BITS_PER_BYTE - BYTES_PER_UINT64
-    
+
     def _pack_data(self, data):
-        """ 
+        """
         :param data: 1-D uint8 raw data to pack
         :return: 1-D uint64 data packed
         """
