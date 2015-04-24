@@ -54,12 +54,10 @@ To decode, specify action *decode*, an *infile* to be the previously encoded ima
 the data to. Algorithm options must be the same as in the encoding step. Decoded data will be saved to the outfile 
 path.
 
-Block size specified must be a power of two.
-
 
 ### How does it work
 
-When I have some time, I'll write an explaination how the algorithm works. Feel free to contact me if you'd be
+When I have some time, I'll write an explaination about how the algorithm works. Feel free to contact me if you'd be
 interested in seeing it.
 
 # Example
