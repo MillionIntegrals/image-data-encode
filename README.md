@@ -70,6 +70,6 @@ Here is a relatively small image of a dragon (480 × 640) I've downloaded fr
 
 ![dragon](https://raw.githubusercontent.com/MillionIntegrals/img-data-encode/master/data/dragon.jpg)
 
-And this is the same image with the whole Alice in Wonderland (160kb) text encoded in it. Parameters were block_size=8, intensity=4.
+And this is the same image with the whole Alice in Wonderland (160kb) text encoded in it. Parameters were block_size=3, intensity=4.
 
 ![dragon encoded](https://raw.githubusercontent.com/MillionIntegrals/img-data-encode/master/data/dragon_encoded.png)
